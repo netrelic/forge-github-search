@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Forge — GitHub Repository Search</title>
+  <meta name="description" content="Search GitHub repositories and download source as ZIP." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230b1210'/%3E%3Cpath d='M8 22 L16 8 L24 22' fill='none' stroke='%2334d399' stroke-width='2.4'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg"></div>
+  <header class="top">
+    <div class="brand">
+      <span class="mark" aria-hidden="true"></span>
+      <div>
+        <h1>Forge</h1>
+        <p class="tag">Search GitHub · download source</p>
+      </div>
+    </div>
+    <button type="button" class="ghost" id="tokenBtn" title="Optional personal access token">Token</button>
+  </header>
+
+  <main>
+    <form class="search-bar" id="searchForm">
+      <input
+        id="q"
+        type="search"
+        placeholder='Search repos — e.g. language:python stars:>1000 topic:privacy'
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <select id="sort" aria-label="Sort">
+        <option value="">Best match</option>
+        <option value="stars">Stars</option>
+        <option value="forks">Forks</option>
+        <option value="updated">Updated</option>
+      </select>
+      <button type="submit" class="primary">Search</button>
+    </form>
+
+    <div class="meta-row">
+      <p id="status" class="status">Public GitHub search. Optional token raises the rate limit.</p>
+      <div class="pager" id="pager" hidden>
+        <button type="button" class="ghost sm" id="prevPage">Prev</button>
+        <span id="pageLabel"></span>
+        <button type="button" class="ghost sm" id="nextPage">Next</button>
+      </div>
+    </div>
+
+    <section id="results" class="results" aria-live="polite"></section>
+  </main>
+
+  <dialog id="tokenDialog">
+    <form method="dialog" class="dialog-inner">
+      <h2>GitHub token</h2>
+      <p>Optional. A classic PAT with public_repo (or no scopes for public search) avoids the unauthenticated 10 req/min cap. Stored only in this browser.</p>
+      <input id="tokenInput" type="password" placeholder="ghp_…" autocomplete="off" />
+      <div class="dialog-actions">
+        <button type="button" class="ghost" id="clearToken">Clear</button>
+        <button value="cancel" class="ghost">Cancel</button>
+        <button value="ok" class="primary" id="saveToken">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <footer>
+    <span>Talks to api.github.com from your browser. No server in the middle.</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
